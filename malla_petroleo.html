@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malla Completa - Ingeniería de Petróleo</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 102, 204, 0.1);
+        }
+        h1 {
+            color: #0066cc;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 28px;
+            border-bottom: 2px solid #0066cc;
+            padding-bottom: 10px;
+        }
+        .mermaid {
+            background-color: #e6f3ff;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+            overflow: auto;
+            border: 1px solid #b3d9ff;
+        }
+        .controls {
+            text-align: center;
+            margin: 25px 0;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        button {
+            background-color: #0066cc;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        button:hover {
+            background-color: #004d99;
+            transform: translateY(-2px);
+        }
+        .legend {
+            background-color: #e6f3ff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            border-left: 5px solid #0066cc;
+        }
+        .legend h3 {
+            color: #0066cc;
+            margin-top: 0;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .color-box {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            border-radius: 4px;
+        }
+        .progress-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        .progress-bar {
+            height: 20px;
+            background-color: #4CAF50;
+            width: 0%;
+            transition: width 0.5s;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            line-height: 20px;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            h1 {
+                font-size: 24px;
+            }
+            button {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 Malla Curricular Completa - Ingeniería de Petróleo</h1>
+        
+        <div class="controls">
+            <button onclick="zoomIn()"><span>➕</span> Zoom In</button>
+            <button onclick="zoomOut()"><span>➖</span> Zoom Out</button>
+            <button onclick="resetZoom()"><span>🔄</span> Reiniciar</button>
+            <button onclick="toggleAprobadas()"><span>✔️</span> Marcar/Aprobar</button>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar">0%</div>
+        </div>
+
+        <div class="mermaid">
+            flowchart TD
+                %% ESTILOS
+                classDef semestre fill:#0066cc,stroke:#003366,color:white,font-weight:bold,font-size:14px
+                classDef materia fill:#e6f3ff,stroke:#0066cc,stroke-width:2px,font-size:12px
+                classDef aprobada fill:#cce6ff,stroke:#0066cc,stroke-dasharray:5,color:#003366
+                classDef laboratorio fill:#d9f2e6,stroke:#00994d
+                classDef electiva fill:#f0e6ff,stroke:#7300e6
+
+                %% SEMESTRE 1
+                S1[["Semestre 1"]]:::semestre
+                S1 --> 0012["0012<br>Introducción a la Ingeniería<br>UC: 2"]:::materia
+                S1 --> 0183["0183<br>Lengua y Comunicación<br>UC: 2"]:::materia
+                S1 --> 0251["0251<br>Cálculo I<br>UC: 5"]:::materia
+                S1 --> 0331["0331<br>Física General I<br>UC: 5"]:::materia
+                S1 --> 0551["0551<br>Geometría Descriptiva I<br>UC: 5"]:::materia
+
+                %% SEMESTRE 2
+                0251 --> S2[["Semestre 2"]]:::semestre
+                0331 --> S2
+                0551 --> S2
+                S2 --> 0252["0252<br>Cálculo II<br>Prel: 0251<br>UC: 5"]:::materia
+                S2 --> 0332["0332<br>Física General II<br>Prel: 0331 + 0251<br>UC: 5"]:::materia
+                S2 --> 0334["0334<br>Lab. Física General<br>Prel: 0331<br>UC: 1"]:::laboratorio
+                S2 --> 0441["0441<br>Química General I<br>UC: 5"]:::materia
+                S2 --> 0555["0555<br>Proy. Axonométrica<br>Prel: 0551<br>UC: 3"]:::materia
+
+                %% SEMESTRE 3
+                0252 --> S3[["Semestre 3"]]:::semestre
+                0441 --> S3
+                S3 --> 0250["0250<br>Álgebra Lineal<br>Prel: 0251<br>UC: 4"]:::materia
+                S3 --> 0253["0253<br>Cálculo III<br>Prel: 0252<br>UC: 5"]:::materia
+                S3 --> 0333["0333<br>Tópicos de Física<br>Prel: 0251 + 0331<br>UC: 4"]:::materia
+                S3 --> 0335["0335<br>Lab. Física Instrumental<br>Prel: 0332<br>UC: 1"]:::laboratorio
+                S3 --> 0442["0442<br>Química General II<br>Prel: 0441<br>UC: 4"]:::materia
+                S3 --> 0445["0445<br>Lab. Básico de Química<br>Prel: 0441<br>UC: 1"]:::laboratorio
+
+                %% SEMESTRE 4
+                0250 --> S4[["Semestre 4"]]:::semestre
+                0253 --> S4
+                S4 --> 0254["0254<br>Cálculo Vectorial<br>Prel: 0250 + 0253<br>UC: 2"]:::materia
+                S4 --> 0256["0256<br>Ecuaciones Diferenciales<br>Prel: 0250 + 0253<br>UC: 5"]:::materia
+                S4 --> 0448["0448<br>Química III<br>Prel: 0442<br>UC: 2"]:::materia
+                S4 --> 0601["0601<br>Mecánica<br>Prel: 0250 + 0253 + 0331<br>UC: 6"]:::materia
+                S4 --> 3110["3110<br>Geología Física<br>Prel: 50 UC<br>UC: 5"]:::materia
+                S4 --> 7501["7501<br>Intro. Ing. de Petróleo<br>Prel: 0012 + 0253 + 0555 + 50 UC<br>UC: 2"]:::materia
+
+                %% SEMESTRE 5
+                0256 --> S5[["Semestre 5"]]:::semestre
+                0601 --> S5
+                3110 --> S5
+                7501 --> S5
+                S5 --> 0101["0101<br>Inglés I<br>UC: 3"]:::materia
+                S5 --> 0260["0260<br>Estadística<br>Prel: 0250 + 0253<br>UC: 3"]:::materia
+                S5 --> 1100["1100<br>Resistencia de Materiales<br>Prel: 0601<br>UC: 3"]:::materia
+                S5 --> 4101["4101<br>Termodinámica I<br>Prel: 0254 + 0256<br>UC: 4"]:::materia
+                S5 --> 7401["7401<br>Ing. Yacimientos I<br>Prel: 3110 + 7501 + 0601<br>UC: 3"]:::materia
+                S5 --> 7407["7407<br>Geología Petrolera I<br>Prel: 0555 + 3110 + 7501<br>UC: 4"]:::materia
+
+                %% SEMESTRE 6
+                4101 --> S6[["Semestre 6"]]:::semestre
+                7401 --> S6
+                7407 --> S6
+                S6 --> 0790["0790<br>Programación<br>Prel: 0250<br>UC: 4"]:::materia
+                S6 --> 4102["4102<br>Termodinámica II<br>Prel: 4101<br>UC: 4"]:::materia
+                S6 --> 4161["4161<br>Mecánica Fluidos I<br>Prel: 0254 + 0256 + 0601<br>UC: 4"]:::materia
+                S6 --> 7403["7403<br>Lab. Yacimientos I<br>Prel: 7401 + 0445 + 0335<br>UC: 2"]:::laboratorio
+                S6 --> 7416["7416<br>Geología Petrolera II<br>Prel: 7407<br>UC: 3"]:::materia
+                S6 --> 7417["7417<br>Ing. Yacimientos II<br>Prel: 7401 + 0256<br>UC: 4"]:::materia
+
+                %% SEMESTRE 7
+                0790 --> S7[["Semestre 7"]]:::semestre
+                7416 --> S7
+                7417 --> S7
+                S7 --> 0104["0104<br>Inglés Instrumental<br>Prel: 0101 + 50 UC<br>UC: 2"]:::materia
+                S7 --> 0142["0142<br>Legislación Minera<br>Prel: 100 UC<br>UC: 2"]:::materia
+                S7 --> 0258["0258<br>Cálculo Numérico<br>Prel: 0256 + 0790<br>UC: 4"]:::materia
+                S7 --> 7409["7409<br>Geología Petrolera III<br>Prel: 7416 + 07408<br>UC: 3"]:::materia
+                S7 --> 7410["7410<br>Ing. Petrofísica<br>Prel: 0260 + 7407<br>UC: 3"]:::materia
+                S7 --> 7418["7418<br>Ing. Yacimientos III<br>Prel: 4101 + 7403 + 7417<br>UC: 4"]:::materia
+                S7 --> 7502["7502<br>Pozos I<br>Prel: 1100 + 4161<br>UC: 3"]:::materia
+
+                %% SEMESTRE 8
+                7418 --> S8[["Semestre 8"]]:::semestre
+                7502 --> S8
+                S8 --> 0106["0106<br>Inglés Conversacional<br>Prel: 0101 + 50 UC<br>UC: 3"]:::materia
+                S8 --> 0184["0184<br>Ingeniería y Sociedad<br>Prel: 0183 + 50 UC<br>UC: 3"]:::materia
+                S8 --> 0766["0766<br>Análisis Econ. Decisiones<br>Prel: 0790 + 120 UC<br>UC: 3"]:::materia
+                S8 --> 7419["7419<br>Ing. Yacimientos IV<br>Prel: 7410 + 7418<br>UC: 4"]:::materia
+                S8 --> 7503["7503<br>Lab. Fluidos Perforación<br>Prel: 0445 + 7502 + 7409<br>UC: 2"]:::laboratorio
+                S8 --> 7504["7504<br>Pozos II<br>Prel: 7502<br>UC: 3"]:::materia
+                S8 --> 7505["7505<br>Ing. Producción I<br>Prel: 4102 + 7502<br>UC: 3"]:::materia
+
+                %% SEMESTRE 9
+                7505 --> S9[["Semestre 9"]]:::semestre
+                S9 --> 7506["7506<br>Ing. Producción II<br>Prel: 7505<br>UC: 3"]:::materia
+                S9 --> 7507["7507<br>Tecnología de Gas<br>Prel: 7418 + 4101<br>UC: 3"]:::materia
+                S9 --> ET1["Electiva Técnica 1<br>UC: 3"]:::electiva
+                S9 --> ET2["Electiva Técnica 2<br>UC: 3"]:::electiva
+                S9 --> ET3["Electiva Técnica 3<br>UC: 3"]:::electiva
+                S9 --> ET4["Electiva Técnica 4<br>UC: 3"]:::electiva
+                S9 --> ENT["Electiva no Técnica<br>UC: 3"]:::electiva
+
+                %% SEMESTRE 10
+                S9 --> S10[["Semestre 10"]]:::semestre
+                S10 --> 7522["7522<br>Trabajo Especial de Grado*<br>Prel: 170 UC<br>UC: 12"]:::materia
+                S10 --> 7523["7523<br>Pasantía Larga**<br>Prel: 170 UC<br>UC: 12"]:::materia
+
+                %% NOTAS AL PIE
+                click S1 "javascript:void(0)" "Semestre 1: 19 UC"
+                click S2 "javascript:void(0)" "Semestre 2: 19 UC"
+                click S3 "javascript:void(0)" "Semestre 3: 19 UC"
+                click S4 "javascript:void(0)" "Semestre 4: 22 UC"
+                click S5 "javascript:void(0)" "Semestre 5: 20 UC"
+                click S6 "javascript:void(0)" "Semestre 6: 21 UC"
+                click S7 "javascript:void(0)" "Semestre 7: 21 UC"
+                click S8 "javascript:void(0)" "Semestre 8: 21 UC"
+                click S9 "javascript:void(0)" "Semestre 9: 21 UC"
+                click S10 "javascript:void(0)" "Semestre 10: 12 UC"
+        </div>
+
+        <div class="legend">
+            <h3>📌 Leyenda Interactiva</h3>
+            <div class="legend-item">
+                <div class="color-box" style="background-color: #0066cc;"></div>
+                <span><strong>Semestres</strong> (Click para ver UC totales)</span>
+            </div>
+            <div class="legend-item">
+                <div class="color-box" style="background-color: #e6f3ff; border: 2px solid #0066cc;"></div>
+                <span><strong>Materias regulares</strong> (Click para marcar como aprobadas)</span>
+            </div>
+            <div class="legend-item">
+                <div class="color-box" style="background-color: #d9f2e6; border: 2px solid #00994d;"></div>
+                <span><strong>Laboratorios</strong></span>
+            </div>
+            <div class="legend-item">
+                <div class="color-box" style="background-color: #f0e6ff; border: 2px solid #7300e6;"></div>
+                <span><strong>Electivas</strong></span>
+            </div>
+            <div class="legend-item">
+                <div class="color-box" style="background-color: #cce6ff; border: 2px dashed #0066cc;"></div>
+                <span><strong>Aprobadas</strong> (Usa el botón "Marcar/Aprobar")</span>
+            </div>
+            <p>* Trabajo de grado requiere aprobación del Consejo de Escuela<br>
+               ** Pasantía de 6 meses mínimo</p>
+        </div>
+    </div>
+
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: false,
+                htmlLabels: true,
+                curve: 'basis',
+                diagramPadding: 20
+            },
+            securityLevel: 'loose'
+        });
+
+        // Variables de estado
+        let modoAprobacion = false;
+        let materiasAprobadas = JSON.parse(localStorage.getItem('materiasAprobadas')) || [];
+        let totalUC = 185; // Total de UC de la carrera (ajustar si es necesario)
+        let ucAprobadas = 0;
+
+        // Funciones de zoom
+        function zoomIn() {
+            const svg = document.querySelector('.mermaid svg');
+            if (svg) {
+                const currentWidth = svg.width.baseVal.value;
+                svg.setAttribute('width', currentWidth * 1.2);
+            }
+        }
+
+        function zoomOut() {
+            const svg = document.querySelector('.mermaid svg');
+            if (svg) {
+                const currentWidth = svg.width.baseVal.value;
+                svg.setAttribute('width', currentWidth / 1.2);
+            }
+        }
+
+        function resetZoom() {
+            const svg = document.querySelector('.mermaid svg');
+            if (svg) {
+                svg.removeAttribute('width');
+            }
+        }
+
+        // Modo aprobación
+        function toggleAprobadas() {
+            modoAprobacion = !modoAprobacion;
+            const boton = document.querySelector('button:nth-child(4)');
+            if (modoAprobacion) {
+                boton.innerHTML = '<span>✖️</span> Salir de Modo Aprobación';
+                alert('Modo aprobación activado. Haz clic en las materias para marcarlas como aprobadas.');
+            } else {
+                boton.innerHTML = '<span>✔️</span> Marcar/Aprobar';
+            }
+        }
+
+        // Cargar estado guardado
+        function cargarAprobadas() {
+            materiasAprobadas.forEach(codigo => {
+                const elemento = document.querySelector(`[title*="${codigo}"]`);
+                if (elemento) {
+                    elemento.classList.add('aprobada');
+                    // Actualizar UC aprobadas (simplificado)
+                    const ucMatch = elemento.getAttribute('title').match(/UC: (\d+)/);
+                    if (ucMatch) ucAprobadas += parseInt(ucMatch[1]);
+                }
+            });
+            actualizarProgreso();
+        }
+
+        // Actualizar barra de progreso
+        function actualizarProgreso() {
+            const porcentaje = Math.round((ucAprobadas / totalUC) * 100);
+            const barra = document.getElementById('progress-bar');
+            barra.style.width = porcentaje + '%';
+            barra.textContent = porcentaje + '% completado';
+        }
+
+        // Click en materias
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                const nodes = document.querySelectorAll('.mermaid .node');
+                nodes.forEach(node => {
+                    node.style.cursor = 'pointer';
+                    node.addEventListener('click', function(e) {
+                        if (!modoAprobacion) return;
+                        
+                        const title = this.querySelector('title')?.textContent || '';
+                        const codigoMatch = title.match(/^\d+/);
+                        if (!codigoMatch) return;
+                        
+                        const codigo = codigoMatch[0];
+                        const index = materiasAprobadas.indexOf(codigo);
+                        
+                        if (index === -1) {
+                            // Marcar como aprobada
+                            this.classList.add('aprobada');
+                            materiasAprobadas.push(codigo);
+                            // Sumar UC (simplificado)
+                            const ucMatch = title.match(/UC: (\d+)/);
+                            if (ucMatch) ucAprobadas += parseInt(ucMatch[1]);
+                        } else {
+                            // Desmarcar
+                            this.classList.remove('aprobada');
+                            materiasAprobadas.splice(index, 1);
+                            const ucMatch = title.match(/UC: (\d+)/);
+                            if (ucMatch) ucAprobadas -= parseInt(ucMatch[1]);
+                        }
+                        
+                        localStorage.setItem('materiasAprobadas', JSON.stringify(materiasAprobadas));
+                        actualizarProgreso();
+                        e.stopPropagation();
+                    });
+                });
+
+                // Cargar aprobadas al inicio
+                cargarAprobadas();
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
